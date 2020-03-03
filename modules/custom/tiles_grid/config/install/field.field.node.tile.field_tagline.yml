@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.tile
+  module:
+    - text
+    - tiles_grid
+  enforced:
+    module:
+      - tiles_grid
+id: node.tile.field_tagline
+field_name: field_tagline
+entity_type: node
+bundle: tile
+label: Tagline
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

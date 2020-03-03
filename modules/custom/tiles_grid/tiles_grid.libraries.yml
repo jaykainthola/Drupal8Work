@@ -1,0 +1,13 @@
+tiles_list:
+  css:
+    theme:
+     css/custom.css: {}
+  js:    
+    js/isotope-docs.min.js: {}
+    js/custom.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once

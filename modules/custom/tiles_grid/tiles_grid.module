@@ -1,0 +1,110 @@
+<?php
+
+/**
+ * @file
+ * Module file for tiles_grid.
+ */
+use Drupal\Core\Template\Attribute;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_theme().
+ */
+function tiles_grid_theme()
+{
+    return [
+        'tiles_grid' => [
+            'variables' => [
+                'twig_list' => []
+            ]
+        ],
+        'views_view_fields__tile_view__page_1' => [
+            'render element' => 'elements',
+            'base hook' => 'views fields'
+        ],
+
+        'views_view_unformatted__tile_view__page_1' => [
+            'render element' => 'elements',
+            'base hook' => 'views unformatted'
+        ]
+    ];
+}
+
+/**
+ * Prepares variables for views unformatted rows templates.
+ *
+ * Default template: views-view-unformatted.html.twig.
+ *
+ * @param array $variables
+ *            An associative array containing:
+ *            - view: The view object.
+ *            - rows: An array of row items. Each row is an array of content.
+ */
+function tiles_grid_preprocess_views_view_unformatted(&$variables)
+{
+    $view = $variables['view'];
+    $rows = $variables['rows'];
+    $style = $view->style_plugin;
+    $options = $style->options;
+
+    $tags_name = [];
+
+    $variables['default_row_class'] = ! empty($options['default_row_class']);
+
+    /**
+     * Only applying for tile_view and display page_1
+     */
+    if ($view->id() == 'tile_view' && $view->current_display == 'page_1') {
+
+        foreach ($rows as $id => $row) {
+
+            /**
+             * Getting Tags name using term id
+             */
+            $term_id = $row['content']['#row']->_entity->field_tags->target_id;
+
+            if (! empty($term_id)) {
+                $term = Term::load($term_id);
+                $name = $term->getName();
+            }
+
+            $tags_name[$term_id] = $name;
+
+            $variables['rows'][$id]['term_name'] = $name;
+        }
+
+        if (! empty($tags_name)) {
+            $variables['tags_name'] = $tags_name;
+        }
+
+        foreach ($rows as $id => $row) {
+
+            $term_id = $row['content']['#row']->_entity->field_tags->target_id;
+
+            if (! empty($term_id)) {
+                $term = Term::load($term_id);
+                $name = $term->getName();
+            }
+
+            $variables['rows'][$id] = [];
+
+            $variables['rows'][$id]['term_name'] = $name;
+            $variables['rows'][$id]['content'] = $row;
+            $variables['rows'][$id]['attributes'] = new Attribute();
+            if ($row_class = $view->style_plugin->getRowClass($id)) {
+                $variables['rows'][$id]['attributes']->addClass($row_class);
+            }
+        }
+    } else {
+
+        foreach ($rows as $id => $row) {
+
+            $variables['rows'][$id] = [];
+            $variables['rows'][$id]['content'] = $row;
+            $variables['rows'][$id]['attributes'] = new Attribute();
+            if ($row_class = $view->style_plugin->getRowClass($id)) {
+                $variables['rows'][$id]['attributes']->addClass($row_class);
+            }
+        }
+    }
+}

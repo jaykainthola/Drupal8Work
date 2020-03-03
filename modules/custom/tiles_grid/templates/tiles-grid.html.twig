@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Display an list of Tiles.
+ */
+#}
+
+{{ attach_library('tiles_grid/tiles_list') }}
+
+
+<div class="grid">
+
+{% for rows in twig_list %}
+
+<div class="grid-item">
+<div class="tile-wrap">
+<div class="image-wrap">
+<div class="icon"><img src="{{ rows.icon }}" /></div>
+{%  if rows.video_field %}
+{{   rows.video_field }}
+<div class="video-play"></div>
+{% else %}
+{{  rows.video_field }}
+<img src="{{ rows.image }}" />
+{%  endif %}
+
+</div>
+<div class="title-wrap">
+<h2 class="tile-title"> {{ rows.title }}</h2>
+<div class="tagline"> {{  rows.tag_line }} </div>
+</div>
+{%  if rows.link_url %}
+<div class="tile-link"><a href="{{  rows.link_url }}">&nbsp;</a></div>
+{%  endif %}
+</div>
+ 
+ </div>
+{% endfor %}
+
+</div>

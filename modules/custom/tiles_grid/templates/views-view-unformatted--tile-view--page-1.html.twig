@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Bootstrap Mint's theme implementation to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{{ attach_library('tiles_grid/tiles_list') }}
+
+
+{% if title %}
+  <h3>{{ title }}</h3>
+{% endif %}
+
+<ul class="filter-button-group tiles-grid-filter">
+    <li><a class="" href="#" data-filter="*"><span>Show All</span></a></li>
+    
+    {%  for name in tags_name %} 
+     <li><a class="" href="#" data-filter=".{{ name|replace({" ": "-"}) }}"><span>{{ name }}</span></a></li>    
+    {%  endfor %}
+</ul>
+
+<div class="tiles-grid-wrap grid">
+{% for row in rows %}
+  {%
+    set row_classes = [
+      default_row_class ? 'views-row',
+      row.term_name|replace({" ": "-"}),
+      'grid-item'
+    ]
+  %}
+  
+  <div{{ row.attributes.addClass(row_classes) }}>
+    {{ row.content }}
+  </div>
+{% endfor %}
+
+</div>

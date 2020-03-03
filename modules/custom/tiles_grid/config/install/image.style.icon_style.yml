@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - tiles_grid
+  enforced:
+    module:
+      - tiles_grid
+name: icon_style
+label: 'Icon Style'
+effects:
+  3b6c0457-6c73-4397-818e-b44e759cd721:
+    uuid: 3b6c0457-6c73-4397-818e-b44e759cd721
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 50
+      height: 50
+      anchor: center-center

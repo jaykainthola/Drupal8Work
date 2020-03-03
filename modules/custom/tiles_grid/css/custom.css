@@ -1,0 +1,78 @@
+.grid {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.grid .grid-item{
+	width:32%;
+	margin: 5px;
+	display: inline-block;
+	floa: left;
+}
+
+.grid .grid-item .image-wrap{width: 100%; position: relative;}
+.grid .grid-item .icon {
+    opacity: 1;
+    position: absolute;
+    z-index: 10;
+    padding: 0 20px;
+    height: 50px;
+    width: 50px;
+    top: 0;
+    left: 0;
+    color: #fff;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+}
+
+.grid .tile-wrap {
+	width: 100%;
+	position: relative;
+}
+
+.grid .tile-wrap .tile-link a {
+	display: block;
+    margin: 0;
+    background-color: transparent!important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 40;	
+}
+.grid .video-play {
+	display: block;
+    margin: 0;
+    background-color: transparent!important;
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 100px;
+    height: 100px;	
+    z-index: 40;
+	background-image: url("../images/play-button.png");
+	background-repeat: no-repeat
+}
+
+.tiles-grid-filter {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.tiles-grid-filter li{
+    display: inline-block;
+    list-style-type: none;
+    list-style: none;    
+}
+
+.tiles-grid-filter li:not(:last-child) span:after{
+    content: "/";
+    color: #DDD;
+    margin: 0 12px;   
+}
+
+.grid .video-embed-field-launch-modal{
+    cursor: pointer;
+}

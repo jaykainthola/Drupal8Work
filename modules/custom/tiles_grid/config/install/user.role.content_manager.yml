@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies: {  }
+id: content_manager
+label: 'content manager'
+weight: 3
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content overview'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'administer taxonomy'
+  - 'create article content'
+  - 'create page content'
+  - 'create terms in tags'
+  - 'create tile content'
+  - 'delete any article content'
+  - 'delete any tile content'
+  - 'delete article revisions'
+  - 'delete own article content'
+  - 'delete own tile content'
+  - 'delete terms in tags'
+  - 'delete tile revisions'
+  - 'edit any article content'
+  - 'edit any tile content'
+  - 'edit own tile content'
+  - 'edit terms in tags'
+  - 'manipulate entityqueues'
+  - 'update tile_queue entityqueue'
+  - 'view the administration theme'

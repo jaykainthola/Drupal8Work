@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - tiles_grid
+  enforced:
+    module:
+      - tiles_grid    
+name: tile_image
+label: tile_image
+effects:
+  a1caa3a6-adc9-4b7f-9de3-3d0e22f405ae:
+    uuid: a1caa3a6-adc9-4b7f-9de3-3d0e22f405ae
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 400
+      height: 250
+      anchor: center-center
