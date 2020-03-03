@@ -5,6 +5,8 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\Entity\Node;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Return Tiles Grid to display in home page.
@@ -43,14 +45,20 @@ class TilesGridController extends ControllerBase
             $nid = $node->id();
             $videoFiledRender = '';
             $linkUrl = '';
+          
+            //Getting URL of node
+            $options = ['absolute' => TRUE];
+            $nodeUrl = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $nid], $options);
+            $nodeUrl = $nodeUrl->toString();
+          
 
             /**
              * Getting fields of tile.
              */
 
-            $tileTitle = $node->getTitle();
+            $tileTitle = Link::fromTextAndUrl($node->getTitle(), url::fromUserInput("/node/" . $nid));
             $imageUurl = $node->get('field_image')->entity->uri->value;
-            $tileTagline = (! empty($node->get('field_tagline')->getValue()) ? $node->get('field_tagline')->getValue()[0]['value'] : '');                        
+            $tileTagline = (! empty($node->get('field_tagline')->getValue()) ? $node->get('field_tagline')->getValue()[0]['value'] : '');
             $linkUrl = (! empty($node->get('field_link')->getValue()) ? $node->get('field_link')->getValue()[0]['uri'] : '');
 
             /**
@@ -93,7 +101,8 @@ class TilesGridController extends ControllerBase
                     ->getTarget()
                     ->getValue();
 
-                $tileTitle = $articleNode->getTitle();
+                $tileTitle = Link::fromTextAndUrl($articleNode->getTitle(), url::fromUserInput("/node/" . $articleNode->id()));
+                
                 $imageUurl = $articleNode->get('field_image')->entity->uri->value;
 
                 $termEntity = $articleNode->get('field_tags')
@@ -102,6 +111,10 @@ class TilesGridController extends ControllerBase
                     ->getTarget()
                     ->getValue();
                 $iconUrl = $termEntity->get('field_icon')->entity->uri->value;
+                
+                $options = ['absolute' => TRUE];
+                $nodeUrl = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $articleNode->id()], $options);
+                $nodeUrl = $nodeUrl->toString();
             }
 
             /**
@@ -116,6 +129,7 @@ class TilesGridController extends ControllerBase
             $tiles_list[$nid]['term_name'] = $termEntity->getName();
             $tiles_list[$nid]['video_field'] = $videoFiledRender;
             $tiles_list[$nid]['link_url'] = $linkUrl;
+            $tiles_list[$nid]['node_url'] = $nodeUrl;
         }
 
         return array(

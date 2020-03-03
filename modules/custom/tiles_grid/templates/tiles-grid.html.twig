@@ -20,8 +20,9 @@
 {{   rows.video_field }}
 <div class="video-play"></div>
 {% else %}
-{{  rows.video_field }}
+<a href="{{ rows.node_url }}">
 <img src="{{ rows.image }}" />
+</a>
 {%  endif %}
 
 </div>
